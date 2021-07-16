@@ -1,25 +1,17 @@
 const dotenv = require('dotenv');
-const mongoose = require('mongoose')
 const express = require('express');
 const app = express();
 
 dotenv.config({ path: './config.env' });
+require('./db/conn');
 
-const DB = process.env.DATABASE
+const PORT = process.env.PORT;
 
-mongoose.connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-}).then(() => {
-    console.log('connection successful')
-}).catch((err) => console.log('no connection'));
 
 app.get('/', (req, res) => {
     res.send('hello world!')
 })
 
-app.listen(3000, () => {
-    console.log('server is runnnig at port no 3000')
+app.listen(PORT, () => {
+    console.log(`server is runnnig at port no ${PORT}`)
 })
